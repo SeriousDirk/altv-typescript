@@ -6,6 +6,10 @@ const fs = require("fs");
 const mkdirp = require("mkdirp");
 const webpack = require("webpack");
 
+process.argv.forEach(function (val, index, array) {
+    console.log(index + ': ' + val);
+  });
+
 function getAllFilesFromFolder(dir) {
     let results = [];
     fs.readdirSync(dir).forEach(function (file) {
@@ -152,13 +156,21 @@ class Bundler {
                 path: this.getResourcePath(element),
                 filename: "index.js",
             };
-            const compiler = webpack(webpackConfig);
-            compiler.run((err, stats) => {
-                if (err) console.error(err);
-                compiler.close((closeErr) => {
-                    if (err) console.error(closeErr);
-                });
+            webpack(webpackConfig, (err, stats) => {
+                if (err) {
+                    console.error(err);
+                }
+                if (stats.hasErrors()) {
+                    const info = stats.toJson();
+                    console.error(info.errors);
+                }
             });
+            // compiler.run((err, stats) => {
+            //     if (err) console.error(err);
+            //     compiler.close((closeErr) => {
+            //         if (err) console.error(closeErr);
+            //     });
+            // });
         }
     }
 }
