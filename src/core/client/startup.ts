@@ -1,6 +1,6 @@
-import * as alt from 'alt-client';
+import * as alt from "alt-client";
 
-alt.onServer('log:Console', handleLogConsole);
+alt.onServer("log:Console", handleLogConsole);
 
 function handleLogConsole(msg: string) {
     alt.log(msg);
