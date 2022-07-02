@@ -6,7 +6,7 @@
     "type": "module",
 	"scripts": {
 		"clean": "rimraf ./resources",
-		"build": "npm run clean && swc ./src -d ./resources --copy-files",
+        "build": "node bundle.cjs",
 		"update": "altv-pkg d release",
 		"windows": "npm run build && altv-server.exe",
 		"linux": "npm run build && ./start.sh",
